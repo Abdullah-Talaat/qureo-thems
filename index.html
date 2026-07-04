@@ -1,18 +1,153 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qureo Themes</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#0d1117;
+    color:#fff;
+    padding:40px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+#themes{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:#161b22;
+    border:1px solid #30363d;
+    border-radius:14px;
+    overflow:hidden;
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#58a6ff;
+}
+
+.card img{
+    width:100%;
+    height:360px;
+    object-fit:cover;
+}
+
+.content{
+    padding:18px;
+}
+
+.content h2{
+    margin-bottom:15px;
+}
+
+pre{
+    background:#0d1117;
+    border-radius:8px;
+    padding:12px;
+    overflow:auto;
+    color:#79c0ff;
+    font-size:13px;
+    white-space:pre-wrap;
+}
+
+button{
+    width:100%;
+    margin-top:15px;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:#238636;
+    color:#fff;
+    font-weight:bold;
+    transition:.2s;
+}
+
+button:hover{
+    background:#2ea043;
+}
+</style>
 </head>
 
 <body>
-  <h4>THE MATRIX theme:</h4>
-  <pre>
-    document.body.innerHTML+='<script src="url/matrix.js"></script>
-'
-  </pre>
-</body>
 
+<h1>Qureo Themes</h1>
+
+<div id="themes"></div>
+
+<script>
+const themes=[
+{
+    name:"The Matrix",
+    image:"matrix.png",
+    code:`document.head.appendChild(Object.assign(document.createElement("script"), {
+    src:"https://abdullah-talaat.github.io/qureo-thems/matrix.js"
+}));`
+},
+
+// أضف ثيمات جديدة هنا فقط
+/*
+{
+    name:"Dark",
+    image:"dark.png",
+    code:`...`
+},
+*/
+];
+
+const container=document.getElementById("themes");
+
+themes.forEach(theme=>{
+
+const card=document.createElement("div");
+card.className="card";
+
+card.innerHTML=`
+<img src="${theme.image}" alt="${theme.name}">
+<div class="content">
+<h2>${theme.name}</h2>
+
+<pre><code>${theme.code}</code></pre>
+
+<button>Copy Code</button>
+
+</div>
+`;
+
+card.querySelector("button").onclick=async()=>{
+
+await navigator.clipboard.writeText(theme.code);
+
+const btn=card.querySelector("button");
+btn.textContent="Copied ✓";
+
+setTimeout(()=>{
+btn.textContent="Copy Code";
+},1500);
+
+};
+
+container.appendChild(card);
+
+});
+</script>
+<a href="https://www.facebook.com/share/1HwM2pWJ32/">by Abdullah Talaat</a>
+</body>
 </html>
